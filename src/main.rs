@@ -1,19 +1,22 @@
-extern crate pretty_locate;
+#![feature(inclusive_range_syntax)]
+extern crate docopt;
+extern crate grep;
+extern crate regex;
+extern crate rustc_serialize;
 
-use pretty_locate::*;
+mod locate;
+// mod update;
+mod args;
+
+use locate::Locations;
+use args::get_args;
+// use update::list_all_files;
 
 
 fn main() {
+    // println!("{}", list_all_files());
     let args = get_args();
     let pattern = &args.arg_pattern;
-
-    let paths = get_paths(pattern);
-    if paths.is_empty() {
-        return;
-    }
-
-    let lines = collapse(paths, pattern, args.flag_wildcard);
-    let output = format(&lines, pattern, args.flag_color);
-    println!("{}", output);
+    let locations = Locations::new(pattern, "full_database.txt");
+    println!("{}", locations.into_string());
 }
-

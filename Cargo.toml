@@ -6,3 +6,5 @@ authors = ["e-matteson <e.r.matteson@gmail.com>"]
 [dependencies]
 docopt = "0.7"
 rustc-serialize = "0.3"
+grep = "*"
+regex = "*"

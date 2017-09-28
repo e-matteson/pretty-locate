@@ -1,16 +1,23 @@
 * pretty-locate
 
-This is a simple wrapper around Unix locate that produces pretty and concise output.
+This is a simple tool that's similar to Unix locate, but produces concise and nicely formatted output.
 
 TODO example output
+** Database creation
+Currently using =find=:
 
-** Limitations
-- Accepts only a single, literal string as a pattern.
-- Does not support any options for locate.
+#+BEGIN_SRC sh
+find / -xdev -type f -o -type l -o \( -name .git -o -name .svn -o -name .hg -o -path /afs -o -path /media -o -path /mnt -o -path /net -o -path /sfs -o -path /tmp -o -path /udev -o -path /var/cache -o -path /var/lib/pacman/local -o -path /var/lock -o -path /var/run -o -path /var/spool -o -path /var/tmp -o -fstype 9p -o -fstype afs -o -fstype anon_inodefs -o -fstype auto -o -fstype autofs -o -fstype bdev -o -fstype binfmt_misc -o -fstype cgroup -o -fstype cifs -o -fstype coda -o -fstype configfs -o -fstype cpuset -o -fstype cramfs -o -fstype debugfs -o -fstype devpts -o -fstype devtmpfs -o -fstype ecryptfs -o -fstype exofs -o -fstype ftpfs -o -fstype fuse -o -fstype fuse.encfs -o -fstype fuse.sshfs -o -fstype fusectl -o -fstype gfs -o -fstype gfs2 -o -fstype hugetlbfs -o -fstype inotifyfs -o -fstype iso9660 -o -fstype jffs2 -o -fstype lustre -o -fstype mqueue -o -fstype ncpfs -o -fstype nfs -o -fstype nfs4 -o -fstype nfsd -o -fstype pipefs -o -fstype proc -o -fstype ramfs -o -fstype rootfs -o -fstype rpc_pipefs -o -fstype securityfs -o -fstype selinuxfs -o -fstype sfs -o -fstype shfs -o -fstype smbfs -o -fstype sockfs -o -fstype sshfs -o -fstype sysfs -o -fstype tmpfs -o -fstype ubifs -o -fstype udf -o -fstype usbfs -o -fstype vboxsf \) -prune -o -print > database.txt
+#+END_SRC
 
-** TODO
-- Make it a complete wrapper. Add support for all locate options, multiple patterns, etc.
-- Optimize for speed: into_map(), get_paths()?
-- Organize modules better
+** Todo
+*** Features
+- Take cmdline args again.
+- Add support for some =mlocate= options
+- Optimize for speed
 - Do proper error-handling with Result
-- Handle wildcard in format module
+- Handle database creation
+- Consider file permissions issues
+- Alphabetize results
+*** Bugs
+- Prints both =dir= and =dir/*=

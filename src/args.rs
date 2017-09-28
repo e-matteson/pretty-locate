@@ -1,7 +1,7 @@
 use docopt::Docopt;
 
 const USAGE: &'static str = "
-Pretty locate wrapper.
+Pretty locate.
 
 Usage:
   pretty-locate <pattern> [--color] [--wildcard]
@@ -9,8 +9,8 @@ Usage:
 
 Options:
   -h --help      Show this screen.
-  --color     Color appearances of <pattern> in the output.
-  --wildcard  Append '*' to matching directories.
+  --color        Color appearances of <pattern> in the output.
+  --wildcard     Append '*' to matching directories.
 
 ";
 
