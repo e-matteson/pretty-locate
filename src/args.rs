@@ -4,13 +4,14 @@ const USAGE: &'static str = "
 Pretty locate.
 
 Usage:
-  pretty-locate <pattern> [--color] [--wildcard]
+  pretty-locate <pattern> [--color] 
+  pretty-locate (-u | --update)
   pretty-locate (-h | --help)
 
 Options:
   -h --help      Show this screen.
+  -u --update    Re-create the database.
   --color        Color appearances of <pattern> in the output.
-  --wildcard     Append '*' to matching directories.
 
 ";
 
@@ -18,7 +19,7 @@ Options:
 pub struct Args {
     pub arg_pattern: String,
     pub flag_color: bool,
-    pub flag_wildcard: bool,
+    pub flag_update: bool,
 }
 
 

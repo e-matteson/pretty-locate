@@ -1,3 +1,5 @@
+use std::io::Write;
+use std::fs::OpenOptions;
 use std::process::Command;
 
 struct FindBuilder {
@@ -6,7 +8,13 @@ struct FindBuilder {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+pub fn create_database(path: &str) {
+    let all_files = list_all_files();
+    write_to_file(path, all_files);
+}
+
 pub fn list_all_files() -> String {
+    // TODO take blacklists as args
     let root = "/";
 
     let name_blacklist = vec![".git", ".hg", ".svn"];
@@ -155,4 +163,19 @@ impl FindBuilder {
             new_args.into_iter().map(|s| s.to_string()).collect();
         self.args.extend(owned);
     }
+}
+
+fn write_to_file(path: &str, text: String) {
+    let mut file = OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(path)
+        .expect("failure to open output file");
+    // .chain_err(|| "failure to open output file")?;
+    file.set_len(0).expect("failure to clear output file");
+    // .chain_err(|| "failure to clear output file")?;
+    file.write_all(text.as_bytes())
+        .expect("failure to write to output file");
+    // .chain_err(|| "failure to write to output file")?;
+    // Ok(())
 }

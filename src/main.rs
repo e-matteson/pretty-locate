@@ -10,13 +10,21 @@ mod args;
 
 use locate::Locations;
 use args::get_args;
-use update::list_all_files;
+use update::create_database;
 
+const DATABASE_PATH: &str = "database/pretty-locate-database.txt";
 
 fn main() {
-    println!("{}", list_all_files());
-    // let args = get_args();
-    // let pattern = &args.arg_pattern;
-    // let locations = Locations::new(pattern, "full_database.txt");
-    // println!("{}", locations.into_string());
+    let args = get_args();
+    println!("{:?}", args);
+
+    if args.flag_update {
+        println!("update!");
+        // create_database(DATABASE_PATH);
+        return;
+    }
+
+    let pattern = &args.arg_pattern;
+    let locations = Locations::new(pattern, DATABASE_PATH);
+    println!("{}", locations.into_string());
 }
